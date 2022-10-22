@@ -1,1 +1,8 @@
-# image_uploader
+# Image uploader API (C# .NET6 using Azure Storage, SQL Client and Dapper)
+First step for me was to, read up on the Azure Blob container documentation, based on connection string, container name and stream (in this case the stream/blob is an image being uploaded by the client. 
+
+My standard approach to webApi is the creation of the sln file, and the directories for the data layer (db repository), api layer (controller for the client), and the logic layer, where data is being handled to and from the client/server.
+
+For the controller, I wanted to keep it relatively simple, due to the size and 'complexity' of the requirements. We are uploading an image, and in return the server gives back to the client, as a confirmation of successful upload, the image uploaded. At this point, I could see a few variations as to how this is going to be handled on the UI and API. In this current instance, the API handles everything, from uploading, to returing the image back to the client. However, the UI could also just open the image that they selected in the http promise return.
+For the azure tables works, I read through the official Azure documentation, which provides a view to upload a file using a 'Stream'. As I was given the container name and connection string seperately, I had to work it slightly differently. I did find a solution online, which proved to drastically simplify the azure connection construction, as seen in the 'UploadHandler'.
+As for the audit trail, I created an arbitrary DB context (using a personal connection), with a connection string. I then created a table called 'UploadAudit', where once the Azure blob client completes the upload (asynchronous), a data model is then constructed and sent to the api repository, where it establishes a connection and destroys the connection upon completion of the query, execution. 
