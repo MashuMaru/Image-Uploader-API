@@ -24,7 +24,6 @@ public class UploadController : ControllerBase
         if (image is null)
             return BadRequest("Image must be provided.");
 
-
         var result = await _uploadHandler.UploadImageToContainer(image).ConfigureAwait(false);
 
         if (!result.IsSuccessful)

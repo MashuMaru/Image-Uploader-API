@@ -29,12 +29,12 @@ namespace ImageUploader.Handlers
 
       await blobClient.UploadAsync(image.OpenReadStream(), overwrite: true).ConfigureAwait(false);
 
-      await _uploadRepository.SaveUploadAudit(new UploadAuditDataModel()
-      {
-        Id = Guid.NewGuid(),
-        UploadDateTime = DateTime.UtcNow,
-        FileName = image.FileName
-      });
+      // await _uploadRepository.SaveUploadAudit(new UploadAuditDataModel()
+      // {
+      //   Id = Guid.NewGuid(),
+      //   UploadDateTime = DateTime.UtcNow,
+      //   FileName = image.FileName
+      // });
 
       return new ApiResponse<IFormFile>
       {
